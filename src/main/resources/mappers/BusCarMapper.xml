@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xxx.mapper.BusCarMapper" >
+  <resultMap id="BaseResultMap" type="com.xxx.bean.BusCar" >
+    <id column="carnumber" property="carnumber" jdbcType="VARCHAR" />
+    <result column="cartype" property="cartype" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="rentprice" property="rentprice" jdbcType="DOUBLE" />
+    <result column="deposit" property="deposit" jdbcType="DOUBLE" />
+    <result column="isrenting" property="isrenting" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="carimg" property="carimg" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    carnumber, cartype, color, price, rentprice, deposit, isrenting, description, carimg, 
+    createtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bus_car
+    where carnumber = #{carnumber,jdbcType=VARCHAR}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bus_car
+    where carnumber = #{carnumber,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xxx.bean.BusCar" >
+    insert into bus_car (carnumber, cartype, color, 
+      price, rentprice, deposit, 
+      isrenting, description, carimg, 
+      createtime)
+    values (#{carnumber,jdbcType=VARCHAR}, #{cartype,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{rentprice,jdbcType=DOUBLE}, #{deposit,jdbcType=DOUBLE}, 
+      #{isrenting,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{carimg,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xxx.bean.BusCar" >
+    insert into bus_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carnumber != null" >
+        carnumber,
+      </if>
+      <if test="cartype != null" >
+        cartype,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="rentprice != null" >
+        rentprice,
+      </if>
+      <if test="deposit != null" >
+        deposit,
+      </if>
+      <if test="isrenting != null" >
+        isrenting,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="carimg != null" >
+        carimg,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carnumber != null" >
+        #{carnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cartype != null" >
+        #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="rentprice != null" >
+        #{rentprice,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null" >
+        #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="isrenting != null" >
+        #{isrenting,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="carimg != null" >
+        #{carimg,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xxx.bean.BusCar" >
+    update bus_car
+    <set >
+      <if test="cartype != null" >
+        cartype = #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="rentprice != null" >
+        rentprice = #{rentprice,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null" >
+        deposit = #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="isrenting != null" >
+        isrenting = #{isrenting,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="carimg != null" >
+        carimg = #{carimg,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where carnumber = #{carnumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xxx.bean.BusCar" >
+    update bus_car
+    set cartype = #{cartype,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      rentprice = #{rentprice,jdbcType=DOUBLE},
+      deposit = #{deposit,jdbcType=DOUBLE},
+      isrenting = #{isrenting,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      carimg = #{carimg,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where carnumber = #{carnumber,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectParams" resultType="com.xxx.bean.BusCar" parameterType="BusCarQuery">
+    select
+    *
+    from bus_car as b
+    <where>
+      <if test="carnumber!=null and carnumber!=''">
+        and b.carnumber like concat("%",#{carnumber},"%")
+      </if>
+      <if test="cartype!=null and cartype!=''">
+        and b.cartype like concat("%",#{cartype},"%")
+      </if>
+      <if test="color!=null and color!=''">
+        and b.color like concat("%",#{color},"%")
+      </if>
+      <if test="description!=null and description!=''">
+        and b.description like concat("%",#{description},"%")
+      </if>
+      <if test="isrenting!=null">
+        and b.isrenting=#{isrenting}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteBatch" parameterType="java.lang.String" >
+    delete from bus_car
+    <where>
+      carnumber in
+      <if test="array !=null and array.length>0">
+        <foreach collection="array" open="(" close=")" separator="," item="carnumber">
+          #{carnumber}
+        </foreach>
+      </if>
+    </where>
+
+  </delete>
+  <select id="selectAllCars" resultType="java.util.Map">
+    select carnumber
+    from bus_car
+    where isrenting = 0
+  </select>
+
+  <!--获取汽车出租数据源-->
+  <select id="selectByParams" resultType="com.xxx.bean.BusCar">
+    select <include refid="Base_Column_List"></include>
+    from bus_car
+    <where>
+      <if test="null != identity and identity != ''">
+        carnumber in (SELECT DISTINCT carnumber from bus_rent where identity = #{identity})
+      </if>
+    </where>
+  </select>
+
+  <update id="reset">
+    update bus_car
+    set isrenting = 0
+    where carnumber = #{carnumber,jdbcType=VARCHAR}
+  </update>
+  <update id="reset1">
+  update bus_rent
+  set rentflag=1
+  where carnumber = #{carnumber,jdbcType=VARCHAR}
+  </update>
+</mapper>
