@@ -89,22 +89,24 @@ public class RoleService extends BaseService<Role,Integer> {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void doGrant(Integer roleId,Integer[] mids){
-        AssertUtil.isTrue(mids==null||mids.length==0,"没有选取角色权限!");
+//        AssertUtil.isTrue(mids==null||mids.length==0,"没有选取角色权限!");
         Integer[] menuId = rmm.getMenuByRoleId(roleId);
         if(menuId!=null&&menuId.length!=0){
             //删除角色原有的权限
             AssertUtil.isTrue(rmm.deleteMenuByRoleId(roleId)!=menuId.length,"删除角色原有id失败!");
         }
 
-        //添加角色权限
-        List<RoleMenu> menus=new ArrayList<>();
-        for (Integer m:mids) {
-            RoleMenu data=new RoleMenu();
-            data.setMid(m);
-            data.setRid(roleId);
-            menus.add(data);
+        if(mids!=null&&mids.length!=0){
+            //添加角色权限
+            List<RoleMenu> menus=new ArrayList<>();
+            for (Integer m:mids) {
+                RoleMenu data=new RoleMenu();
+                data.setMid(m);
+                data.setRid(roleId);
+                menus.add(data);
+            }
+            AssertUtil.isTrue(rmm.insertMenuOfRole(menus)<menus.size(),"角色授权失败!");
         }
-        AssertUtil.isTrue(rmm.insertMenuOfRole(menus)<menus.size(),"角色授权失败!");
 
     }
 }
